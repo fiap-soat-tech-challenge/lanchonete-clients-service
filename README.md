@@ -2,7 +2,7 @@
   <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="200" alt="Nest Logo" /></a>
 </p>
 
-<p align="center">Este é uma projeto é um projeto para uma sistema para uma lanchonete usando as melhores práticas de arquitetura de software.</p>
+<p align="center">Este é um microsserviço para gerenciamento de cliente do app lanchonete usando as melhores práticas de arquitetura de software.</p>
   <p align="center">
     <a href="https://nodejs.org/en" target="_blank"><img src="https://img.shields.io/badge/node.js-6DA55F?style=for-the-badge&logo=node.js&logoColor=white" alt="Node.JS" /></a>
     <a href="https://www.typescriptlang.org" target="_blank"><img src="https://img.shields.io/badge/typescript-%23007ACC.svg?style=for-the-badge&logo=typescript&logoColor=white" alt="Typescript" /></a>
@@ -16,27 +16,9 @@
 <!-- TITULO DO PROJETO -->
 <br />
 <div align="center">
-  <h3 align="center">Lanchonete</h3>
+  <h3 align="center">Lanchonete Clients Service</h3>
 </div>
 
-
-
-<!-- TABELA DE CONTEUDOS -->
-<details>
-  <summary>Tabela de conteúdos</summary>
-  <ol>
-    <li>
-      <a href="#começando">Começando</a>
-      <ul>
-        <li><a href="#pré-requisitos">Pré-requisitos</a></li>
-        <li><a href="#instalação">Instalação</a></li>
-      </ul>
-    </li>
-    <li><a href="#exemplos-de-uso">Exemplos de uso</a></li>
-    <li><a href="#banco-de-dados">Banco de dados</a></li>
-    <li><a href="#roteiro">Roteiro</a></li>
-  </ol>
-</details>
 
 
 <!-- COMECANDO -->
@@ -56,11 +38,11 @@ A instalação é bem simples, siga as seguintes etapas:
 
 1. Clone o repositório
    ```sh
-   git clone https://github.com/jonilsonds9/lanchonete.git
+   git clone https://github.com/fiap-soat-tech-challenge/lanchonete-clients-service
    ```
 2. Entre na pasta do projeto
    ```sh
-   cd lanchonete
+   cd lanchonete-clients-service
    ```
 3. Crie um arquivo novo arquivo com as váriaveis de ambiente `.env` usando o `.env.example`
    ```sh
@@ -73,24 +55,19 @@ A instalação é bem simples, siga as seguintes etapas:
 
 <p align="right">(<a href="#readme-top">Voltar para o topo</a>)</p>
 
-<!-- Aplicação de pagamento (mock) -->
-## Aplicação de pagamento (mock)
-
-Este sistema conta com uma aplicação externa que realiza os pagamentos, de forma mockada, visando apenas dar suporte ao fluxo da aplicação principal.
-
 <!-- EXEMPLOS DE USO -->
 ## Exemplos de uso
 
 ### Para acessar a home da API
-- http://localhost:3000/
+- http://localhost:3001/
 
 Nessa página você terá o link para a documentação (Swagger) e poderar utilizar toda a aplicação!
 
 ### Para acessar o Swagger UI use uma das seguintes URLs
-- http://localhost:3000/api/docs
+- http://localhost:3001/api/docs
 
 ### Health Check
-    http://localhost:3000/health
+    http://localhost:3001/health
 
 A resposta deve seguir o seguinte formato:
 
@@ -101,9 +78,6 @@ A resposta deve seguir o seguinte formato:
     "database": {
       "status": "up"
     },
-    "gateway-pagamento": {
-      "status": "up"
-    }
   },
   "error": {
     
@@ -112,9 +86,6 @@ A resposta deve seguir o seguinte formato:
     "database": {
       "status": "up"
     },
-    "gateway-pagamento": {
-      "status": "up"
-    }
   }
 }
 ```
@@ -136,15 +107,6 @@ inicialmente ela será de pequeno porte.
 
 Por fim, conseguimos gerenciar e monitorar o nosso banco de dados utilizando recursos disponibilizados no próprio 
 PostgreSQL, garantindo o desempenho e segurança dos nossos dados.
-
-Nossa modelagem de banco de dados é a seguinte:
-
-<!-- ROTEIRO -->
-## Roteiro
-
-- [x] Começando o projeto
-- [x] Dockerização
-- [x] Documentação
 
 <p align="right">(<a href="#readme-top">Voltar para o topo</a>)</p>
 
