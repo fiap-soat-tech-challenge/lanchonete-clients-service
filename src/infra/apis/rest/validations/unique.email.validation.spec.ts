@@ -6,14 +6,13 @@ import { UseCasesProxyModule } from '../../../usecases-proxy/use-cases-proxy.mod
 import { ValidationArguments } from 'class-validator/types/validation/ValidationArguments';
 import { Cliente } from '../../../../domain/model/cliente';
 
-jest.mock('../../../../usecases/cliente.use.cases');
-
 describe('UniqueEmailValidation Tests', () => {
+  let module: TestingModule;
   let uniqueEmailValidation: UniqueEmailValidation;
   let mockUseCaseProxy: UseCaseProxy<ClienteUseCases>;
 
-  beforeEach(async () => {
-    const module: TestingModule = await Test.createTestingModule({
+  beforeAll(async () => {
+    module = await Test.createTestingModule({
       imports: [UseCasesProxyModule.register()],
       providers: [UniqueEmailValidation],
     }).compile();
@@ -25,6 +24,10 @@ describe('UniqueEmailValidation Tests', () => {
     mockUseCaseProxy = module.get<UseCaseProxy<ClienteUseCases>>(
       UseCasesProxyModule.CLIENTE_USECASES_PROXY,
     );
+  });
+
+  afterAll(async () => {
+    await module.close();
   });
 
   it('should be defined', () => {

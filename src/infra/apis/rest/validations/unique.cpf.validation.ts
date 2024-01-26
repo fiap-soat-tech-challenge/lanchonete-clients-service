@@ -5,7 +5,7 @@ import {
   ValidatorConstraint,
   ValidatorConstraintInterface,
 } from 'class-validator';
-import { Inject, Injectable } from '@nestjs/common';
+import { Inject, Injectable, Logger } from '@nestjs/common';
 import { UseCasesProxyModule } from '../../../usecases-proxy/use-cases-proxy.module';
 import { UseCaseProxy } from '../../../usecases-proxy/use-case-proxy';
 import { ClienteUseCases } from '../../../../usecases/cliente.use.cases';
@@ -14,6 +14,7 @@ import { NotFoundException } from '../../../../domain/exceptions/not-found.excep
 @ValidatorConstraint({ async: true })
 @Injectable()
 export class UniqueCpfValidation implements ValidatorConstraintInterface {
+  private readonly logger = new Logger(UniqueCpfValidation.name);
   constructor(
     @Inject(UseCasesProxyModule.CLIENTE_USECASES_PROXY)
     private clienteUseCasesUseCaseProxy: UseCaseProxy<ClienteUseCases>,
@@ -37,7 +38,7 @@ export class UniqueCpfValidation implements ValidatorConstraintInterface {
       if (e instanceof NotFoundException) {
         return true;
       }
-      console.log('Unexpected error', e);
+      this.logger.warn('Unexpected error:', e.stack);
       return false;
     }
   }

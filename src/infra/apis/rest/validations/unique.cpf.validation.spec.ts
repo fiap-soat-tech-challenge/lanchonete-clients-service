@@ -7,14 +7,13 @@ import { NotFoundException } from '../../../../domain/exceptions/not-found.excep
 import { Cliente } from '../../../../domain/model/cliente';
 import { ValidationArguments } from 'class-validator/types/validation/ValidationArguments';
 
-jest.mock('../../../../usecases/cliente.use.cases');
-
 describe('UniqueCpfValidation', () => {
+  let module: TestingModule;
   let uniqueCpfValidation: UniqueCpfValidation;
   let mockUseCaseProxy: UseCaseProxy<ClienteUseCases>;
 
-  beforeEach(async () => {
-    const module: TestingModule = await Test.createTestingModule({
+  beforeAll(async () => {
+    module = await Test.createTestingModule({
       imports: [UseCasesProxyModule.register()],
       providers: [UniqueCpfValidation],
     }).compile();
@@ -24,6 +23,10 @@ describe('UniqueCpfValidation', () => {
     mockUseCaseProxy = module.get<UseCaseProxy<ClienteUseCases>>(
       UseCasesProxyModule.CLIENTE_USECASES_PROXY,
     );
+  });
+
+  afterAll(async () => {
+    await module.close();
   });
 
   it('should be defined', () => {
