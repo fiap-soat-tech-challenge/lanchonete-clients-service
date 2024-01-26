@@ -63,9 +63,6 @@ jobs:
         env:
           CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
 
-#      - name: Run Tests with Coverage
-#        uses: ArtiomTr/jest-coverage-report-action@v2
-
   create-docker-image:
     name: "Build Docker image"
     runs-on: ubuntu-latest
