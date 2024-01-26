@@ -4,7 +4,7 @@ on:
   push:
     branches:
       - main
-  pull_request_target:
+  pull_request:
 
 env:
   ECR_REPOSITORY: "lanchonete-clients-service"
@@ -16,6 +16,10 @@ jobs:
   build-and-tests:
     name: "Continuous integration"
     runs-on: ubuntu-latest
+    permissions:
+      checks: write
+      pull-requests: write
+      contents: write
     steps:
       - name: Checkout
         uses: actions/checkout@v4
