@@ -55,9 +55,6 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      - name: Run build
-        run: npm run build --if-present
-
       - name: Run Tests with Coverage
         uses: ArtiomTr/jest-coverage-report-action@v2
 
