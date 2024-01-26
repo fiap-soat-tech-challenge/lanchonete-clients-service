@@ -1,5 +1,3 @@
-[![Test Coverage](https://github.com/fiap-soat-tech-challenge/lanchonete-clients-service/actions/workflows/ci_cd.yml/badge.svg)](https://github.com/fiap-soat-tech-challenge/lanchonete-clients-service/actions/workflows/ci_cd.yml)
-
 <p align="center">
   <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="200" alt="Nest Logo" /></a>
 </p>
