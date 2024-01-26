@@ -2,8 +2,7 @@ import { ClienteRepository } from '../../domain/repositories/cliente.repository'
 import { Cliente } from '../../domain/model/cliente';
 import { ClienteEntity } from '../entities/cliente.entity';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Equal, InsertResult, Repository } from 'typeorm';
-import { HttpException, HttpStatus } from '@nestjs/common';
+import { Equal, Repository } from 'typeorm';
 import { ClienteConverter } from '../shared/cliente.converter';
 
 export class ClienteRepositoryImpl implements ClienteRepository {
