@@ -3,9 +3,8 @@ import { ClientesController } from './clientes.controller';
 import { ClienteUseCases } from '../../../../usecases/cliente.use.cases';
 import { ClienteDto } from '../dtos/cliente.dto';
 import { ClientePresenter } from '../presenters/cliente.presenter';
-import { anyOfClass, anything, instance, mock, when } from 'ts-mockito';
+import { anyOfClass, instance, mock, when } from 'ts-mockito';
 import { Cliente } from '../../../../domain/model/cliente';
-import any = jasmine.any;
 
 describe('ClientesController', () => {
   let controller: ClientesController;
