@@ -3,6 +3,7 @@ import { ClienteUseCases } from '../../../../usecases/cliente.use.cases';
 import { NotFoundException } from '../../../../domain/exceptions/not-found.exception';
 import { Cliente } from '../../../../domain/model/cliente';
 import { instance, mock, when } from 'ts-mockito';
+import { ValidationArguments } from 'class-validator';
 
 describe('UniqueCpfValidation', () => {
   let validation: UniqueCpfValidation;
@@ -58,5 +59,15 @@ describe('UniqueCpfValidation', () => {
 
     const result = await validation.validate(cpf);
     expect(result).toBe(false);
+  });
+
+  it('should have a default error message', () => {
+    const defaultMessage = validation.defaultMessage({
+      property: 'cpf',
+    } as ValidationArguments);
+
+    expect(defaultMessage).toEqual(
+      expect.stringContaining('O campo cpf já foi cadastrado'),
+    );
   });
 });
