@@ -14,16 +14,14 @@ import { ClienteDto } from '../dtos/cliente.dto';
 import { UseCasesProxyModule } from '../../../usecases-proxy/use-cases-proxy.module';
 import { UseCaseProxy } from '../../../usecases-proxy/use-case-proxy';
 import { ClienteUseCases } from '../../../../usecases/cliente.use.cases';
+import { ClienteRepository } from '../../../../domain/repositories/cliente.repository';
 
 @ApiTags('Clientes')
 @ApiResponse({ status: '5XX', description: 'Erro interno do sistema' })
 @ApiBearerAuth()
 @Controller('/api/clientes')
 export class ClientesController {
-  constructor(
-    @Inject(UseCasesProxyModule.CLIENTE_USECASES_PROXY)
-    private clienteUseCasesUseCaseProxy: UseCaseProxy<ClienteUseCases>,
-  ) {}
+  constructor(private clienteUseCases: ClienteUseCases) {}
   @ApiOperation({
     summary: 'Listagem de clientes cadastrados',
     description: 'Retorna a lista de clientes cadastrados no sistema',
@@ -34,9 +32,7 @@ export class ClientesController {
   })
   @Get()
   async listar(): Promise<Array<ClientePresenter>> {
-    const allClientes = await this.clienteUseCasesUseCaseProxy
-      .getInstance()
-      .getAllClientes();
+    const allClientes = await this.clienteUseCases.getAllClientes();
     return allClientes.map((cliente) => new ClientePresenter(cliente));
   }
 
@@ -53,9 +49,9 @@ export class ClientesController {
   })
   @Post()
   async cadastrar(@Body() clienteDto: ClienteDto): Promise<ClientePresenter> {
-    const cliente = await this.clienteUseCasesUseCaseProxy
-      .getInstance()
-      .addCliente(clienteDto.toCliente());
+    const cliente = await this.clienteUseCases.addCliente(
+      clienteDto.toCliente(),
+    );
     return new ClientePresenter(cliente);
   }
 
@@ -71,9 +67,7 @@ export class ClientesController {
   })
   @Get(':cpf')
   async buscarPorCpf(@Param('cpf') cpf: string): Promise<ClientePresenter> {
-    const clienteByCpf = await this.clienteUseCasesUseCaseProxy
-      .getInstance()
-      .getClienteByCpf(cpf);
+    const clienteByCpf = await this.clienteUseCases.getClienteByCpf(cpf);
     return new ClientePresenter(clienteByCpf);
   }
 }

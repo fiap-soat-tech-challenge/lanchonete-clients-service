@@ -5,9 +5,7 @@ import {
   ValidatorConstraint,
   ValidatorConstraintInterface,
 } from 'class-validator';
-import { Inject, Injectable, Logger } from '@nestjs/common';
-import { UseCasesProxyModule } from '../../../usecases-proxy/use-cases-proxy.module';
-import { UseCaseProxy } from '../../../usecases-proxy/use-case-proxy';
+import { Injectable, Logger } from '@nestjs/common';
 import { ClienteUseCases } from '../../../../usecases/cliente.use.cases';
 import { NotFoundException } from '../../../../domain/exceptions/not-found.exception';
 
@@ -15,10 +13,7 @@ import { NotFoundException } from '../../../../domain/exceptions/not-found.excep
 @Injectable()
 export class UniqueCpfValidation implements ValidatorConstraintInterface {
   private readonly logger = new Logger(UniqueCpfValidation.name);
-  constructor(
-    @Inject(UseCasesProxyModule.CLIENTE_USECASES_PROXY)
-    private clienteUseCasesUseCaseProxy: UseCaseProxy<ClienteUseCases>,
-  ) {}
+  constructor(private clienteUseCases: ClienteUseCases) {}
 
   defaultMessage(validationArguments?: ValidationArguments): string {
     return `O campo ${validationArguments.property} já foi cadastrado`;
@@ -30,9 +25,7 @@ export class UniqueCpfValidation implements ValidatorConstraintInterface {
     validationArguments?: ValidationArguments,
   ): Promise<boolean> {
     try {
-      const clienteByCpf = await this.clienteUseCasesUseCaseProxy
-        .getInstance()
-        .getClienteByCpf(value);
+      const clienteByCpf = await this.clienteUseCases.getClienteByCpf(value);
       return !clienteByCpf;
     } catch (e) {
       if (e instanceof NotFoundException) {

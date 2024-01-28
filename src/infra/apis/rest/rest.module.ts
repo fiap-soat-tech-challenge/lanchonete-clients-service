@@ -7,7 +7,7 @@ import { UniqueEmailValidation } from './validations/unique.email.validation';
 import { LoginController } from './controllers/login.controller';
 
 @Module({
-  imports: [UseCasesProxyModule.register()],
+  imports: [UseCasesProxyModule],
   providers: [UniqueCpfValidation, UniqueEmailValidation],
   controllers: [HomeController, LoginController, ClientesController],
 })
