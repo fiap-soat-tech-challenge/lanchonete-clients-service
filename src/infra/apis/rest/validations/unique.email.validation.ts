@@ -5,18 +5,13 @@ import {
   ValidatorConstraint,
   ValidatorConstraintInterface,
 } from 'class-validator';
-import { Inject, Injectable } from '@nestjs/common';
-import { UseCasesProxyModule } from '../../../usecases-proxy/use-cases-proxy.module';
-import { UseCaseProxy } from '../../../usecases-proxy/use-case-proxy';
+import { Injectable } from '@nestjs/common';
 import { ClienteUseCases } from '../../../../usecases/cliente.use.cases';
 
 @ValidatorConstraint({ async: true })
 @Injectable()
 export class UniqueEmailValidation implements ValidatorConstraintInterface {
-  constructor(
-    @Inject(UseCasesProxyModule.CLIENTE_USECASES_PROXY)
-    private clienteUseCasesUseCaseProxy: UseCaseProxy<ClienteUseCases>,
-  ) {}
+  constructor(private clienteUseCases: ClienteUseCases) {}
 
   defaultMessage(validationArguments?: ValidationArguments): string {
     return `O campo ${validationArguments.property} já foi cadastrado`;
@@ -27,9 +22,7 @@ export class UniqueEmailValidation implements ValidatorConstraintInterface {
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     validationArguments?: ValidationArguments,
   ): Promise<boolean> {
-    const clienteByEmail = await this.clienteUseCasesUseCaseProxy
-      .getInstance()
-      .getClienteByEmail(value);
+    const clienteByEmail = await this.clienteUseCases.getClienteByEmail(value);
     return !clienteByEmail;
   }
 }
