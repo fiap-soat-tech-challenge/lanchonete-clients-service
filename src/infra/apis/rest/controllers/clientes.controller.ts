@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Inject, Param, Post } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post } from '@nestjs/common';
 import {
   ApiBadRequestResponse,
   ApiBearerAuth,
@@ -11,10 +11,7 @@ import {
 } from '@nestjs/swagger';
 import { ClientePresenter } from '../presenters/cliente.presenter';
 import { ClienteDto } from '../dtos/cliente.dto';
-import { UseCasesProxyModule } from '../../../usecases-proxy/use-cases-proxy.module';
-import { UseCaseProxy } from '../../../usecases-proxy/use-case-proxy';
 import { ClienteUseCases } from '../../../../usecases/cliente.use.cases';
-import { ClienteRepository } from '../../../../domain/repositories/cliente.repository';
 
 @ApiTags('Clientes')
 @ApiResponse({ status: '5XX', description: 'Erro interno do sistema' })
