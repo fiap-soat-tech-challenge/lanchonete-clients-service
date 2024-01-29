@@ -4,6 +4,7 @@ import { DatabaseConfigService } from './database.config.service';
 
 describe('DatabaseConfigService', () => {
   let service: DatabaseConfigService;
+  let configService: ConfigService;
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
@@ -19,6 +20,7 @@ describe('DatabaseConfigService', () => {
     }).compile();
 
     service = module.get<DatabaseConfigService>(DatabaseConfigService);
+    configService = module.get<ConfigService>(ConfigService);
   });
 
   it('should be defined', () => {
@@ -46,6 +48,28 @@ describe('DatabaseConfigService', () => {
       const result = service.createTypeOrmOptions();
 
       expect(result.type).toEqual('postgres');
+    });
+  });
+
+  describe('getExtra', () => {
+    it('should return empty object if DB_SSL is falsy', () => {
+      jest.spyOn(configService, 'get').mockReturnValueOnce('false');
+
+      const result = service['getExtra']();
+
+      expect(result).toEqual({});
+    });
+
+    it('should return ssl object with rejectUnauthorized set to false if DB_SSL is truthy', () => {
+      jest.spyOn(configService, 'get').mockReturnValueOnce('true');
+
+      const result = service['getExtra']();
+
+      expect(result).toEqual({
+        ssl: {
+          rejectUnauthorized: false,
+        },
+      });
     });
   });
 
