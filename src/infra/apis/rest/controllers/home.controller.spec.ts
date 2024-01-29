@@ -26,7 +26,7 @@ describe('HomeController', () => {
 
       expect(result).toEqual({
         message: 'Bem-vindo ao Clients Service Lanchonete!',
-        docs: 'http://localhost:3000/api/docs',
+        docs: 'http://localhost:3000/api/clientes/docs',
       });
     });
   });
