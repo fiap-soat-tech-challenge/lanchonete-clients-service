@@ -28,6 +28,11 @@ export class DatabaseConfigService implements TypeOrmOptionsFactory {
       synchronize: this.boolean(this.configService.get('DB_SYNCHRONIZE')),
       entities: [__dirname + '/**/*.entity{.ts,.js}'],
       ssl: this.boolean(this.configService.get('DB_SSL')),
+      extra: {
+        ssl: {
+          rejectUnauthorized: false,
+        },
+      },
     };
   }
 
