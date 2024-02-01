@@ -16,7 +16,7 @@ import { ClienteUseCases } from '../../../../usecases/cliente.use.cases';
 @ApiTags('Clientes')
 @ApiResponse({ status: '5XX', description: 'Erro interno do sistema' })
 @ApiBearerAuth()
-@Controller('/api/clients/clientes')
+@Controller('clientes')
 export class ClientesController {
   constructor(private clienteUseCases: ClienteUseCases) {}
   @ApiOperation({
