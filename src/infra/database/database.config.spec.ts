@@ -1,15 +1,15 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { ConfigService } from '@nestjs/config';
-import { DatabaseConfigService } from './database.config.service';
+import { DatabaseConfig } from './database.config';
 
 describe('DatabaseConfigService', () => {
-  let service: DatabaseConfigService;
+  let service: DatabaseConfig;
   let configService: ConfigService;
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
       providers: [
-        DatabaseConfigService,
+        DatabaseConfig,
         {
           provide: ConfigService,
           useValue: {
@@ -19,7 +19,7 @@ describe('DatabaseConfigService', () => {
       ],
     }).compile();
 
-    service = module.get<DatabaseConfigService>(DatabaseConfigService);
+    service = module.get<DatabaseConfig>(DatabaseConfig);
     configService = module.get<ConfigService>(ConfigService);
   });
 
