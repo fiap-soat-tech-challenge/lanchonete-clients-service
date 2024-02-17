@@ -124,6 +124,14 @@ No futuro com a evolução, do software, do time, e mudanças no negócio (possi
 orquestração, mas no momento é mais vantajoso usarmos a estratégia **coreografia**. Assim cada serviço sabe qual 
 evento disparar e qual evento deve ouvir para que a saga seja completa.
 
+## Zap Scanning Reports
+
+Os relatórios de segurança do ZAP Scanning estão disponíveis no diretório `zap-reports` dos repositórios dos serviços 
+correspondentes, para acessar os relatórios clique nos links abaixo:
+
+- **[Zap Reports de Listar Cardápio e Realização do Pedido](https://github.com/fiap-soat-tech-challenge/lanchonete-order-service?tab=readme-ov-file#zap-scanning-reports)**
+- **[Zap Reports de Geração do Pagamento e Confirmação do Pagamento](https://github.com/fiap-soat-tech-challenge/lanchonete-payment-service?tab=readme-ov-file#zap-scanning-reports)**
+
 ## Relatório RIPD do sistema
 
 Link para o relatório RIPD do sistema: **[Relatório RIPD](https://docs.google.com/document/d/1hBpNQ4Gs5mKzRf0FAM85vzqWiXM7idFJF5sMvlN9cy0/preview)**.
