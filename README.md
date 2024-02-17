@@ -124,6 +124,10 @@ No futuro com a evolução, do software, do time, e mudanças no negócio (possi
 orquestração, mas no momento é mais vantajoso usarmos a estratégia **coreografia**. Assim cada serviço sabe qual 
 evento disparar e qual evento deve ouvir para que a saga seja completa.
 
+## Relatório RIPD do sistema
+
+Link para o relatório RIPD do sistema: **[Relatório RIPD](https://docs.google.com/document/d/1hBpNQ4Gs5mKzRf0FAM85vzqWiXM7idFJF5sMvlN9cy0/preview)**.
+
 ## Diagrama da Arquitetura
 
 ![Diagrama da Arquitetura](https://github.com/fiap-soat-tech-challenge/terraform-lanchonete-app/blob/main/docs/imagens/infra_aws_app.png)
