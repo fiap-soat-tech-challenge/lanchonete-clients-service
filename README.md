@@ -123,3 +123,7 @@ implementar mais rapidamente, e com isso entregar uma primeira versão do softwa
 No futuro com a evolução, do software, do time, e mudanças no negócio (possivelmente) podemos pensar em utilizar a 
 orquestração, mas no momento é mais vantajoso usarmos a estratégia **coreografia**. Assim cada serviço sabe qual 
 evento disparar e qual evento deve ouvir para que a saga seja completa.
+
+## Diagrama da Arquitetura
+
+![Diagrama da Arquitetura](https://github.com/fiap-soat-tech-challenge/terraform-lanchonete-app/blob/main/docs/imagens/infra_aws_app.png)
