@@ -23,7 +23,7 @@ export class ClienteDeleteDto {
 
   @ApiProperty()
   @IsNotEmpty({ message: 'O telefone é obrigatório' })
-  @Matches(/\([0-9]{2}\)\s[0-9]{4,5}-[0-9]{4}/gm, {
+  @Matches(/\(\d{2}\)\s\d{4,5}-\d{4}/gm, {
     message: 'Formato de telefone inválido. Use o formato (99) 99999-9999',
   })
   telefone: string;
