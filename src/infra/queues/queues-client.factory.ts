@@ -4,7 +4,7 @@ import { RabbitMQConfig } from '@golevelup/nestjs-rabbitmq';
 import { ModuleConfigFactory } from '@golevelup/nestjs-modules/lib/dynamicModules';
 
 @Injectable()
-export class ClienteForDeleteClientFactory
+export class QueuesClientFactory
   implements ModuleConfigFactory<RabbitMQConfig>
 {
   constructor(private configService: ConfigService) {}

@@ -1,11 +1,11 @@
 import { Module } from '@nestjs/common';
 import { RabbitMQModule } from '@golevelup/nestjs-rabbitmq';
-import { ClienteForDeleteClientFactory } from './cliente-for-delete-client-factory';
+import { QueuesClientFactory } from './queues-client.factory';
 
 @Module({
   imports: [
     RabbitMQModule.forRootAsync(RabbitMQModule, {
-      useClass: ClienteForDeleteClientFactory,
+      useClass: QueuesClientFactory,
     }),
     QueuesModule,
   ],
