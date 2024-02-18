@@ -1,14 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
-import {
-  IsEmail,
-  IsNotEmpty,
-  Matches,
-  MaxLength,
-  MinLength,
-} from 'class-validator';
-import { Cliente } from '../../../../domain/model/cliente';
-import { UniqueCpf } from '../validations/unique.cpf.validation';
-import { UniqueEmail } from '../validations/unique.email.validation';
+import { IsNotEmpty, Matches, MaxLength, MinLength } from 'class-validator';
 
 export class ClienteDeleteDto {
   @ApiProperty()
