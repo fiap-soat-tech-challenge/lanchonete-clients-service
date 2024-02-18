@@ -12,6 +12,7 @@ describe('ClienteRepositoryImpl', () => {
     find: jest.fn(),
     findOneBy: jest.fn(),
     save: jest.fn(),
+    delete: jest.fn(),
   };
 
   beforeEach(async () => {
@@ -131,6 +132,48 @@ describe('ClienteRepositoryImpl', () => {
       const result = await clienteRepository.insert(mockCliente);
 
       expect(result).toEqual(ClienteConverter.toCliente(mockClienteEntity));
+    });
+  });
+
+  describe('delete', () => {
+    it('should delete a Cliente', async () => {
+      const mockCliente = new Cliente(
+        1,
+        '12345678901',
+        'Teste',
+        'test@example.com',
+        '11123456784',
+        new Date(),
+      );
+
+      mockClienteEntityRepository.delete.mockResolvedValue({
+        affected: 1,
+      });
+
+      const result = await clienteRepository.delete(mockCliente);
+
+      expect(mockClienteEntityRepository.delete).toHaveBeenCalledWith(1);
+      expect(result).toBe(true);
+    });
+
+    it('should return false if delete fails', async () => {
+      const mockCliente = new Cliente(
+        1,
+        '12345678901',
+        'Teste',
+        'test@example.com',
+        '11123456784',
+        new Date(),
+      );
+
+      mockClienteEntityRepository.delete.mockResolvedValue({
+        affected: 0,
+      });
+
+      const result = await clienteRepository.delete(mockCliente);
+
+      expect(mockClienteEntityRepository.delete).toHaveBeenCalledWith(1);
+      expect(result).toBe(false);
     });
   });
 });

@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Param, Post } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Post } from '@nestjs/common';
 import {
   ApiBadRequestResponse,
   ApiBearerAuth,
@@ -12,6 +12,7 @@ import {
 import { ClientePresenter } from '../presenters/cliente.presenter';
 import { ClienteDto } from '../dtos/cliente.dto';
 import { ClienteUseCases } from '../../../../usecases/cliente.use.cases';
+import { ClienteDeleteDto } from '../dtos/cliente-delete.dto';
 
 @ApiTags('Clientes')
 @ApiResponse({ status: '5XX', description: 'Erro interno do sistema' })
@@ -66,5 +67,21 @@ export class ClientesController {
   async buscarPorCpf(@Param('cpf') cpf: string): Promise<ClientePresenter> {
     const clienteByCpf = await this.clienteUseCases.getClienteByCpf(cpf);
     return new ClientePresenter(clienteByCpf);
+  }
+
+  @ApiOperation({
+    summary: 'Deletar cliente',
+    description:
+      'Deleta um cliente pelos dados informados.\nATENÇÃO: Está ação é irreversível.',
+  })
+  @ApiOkResponse()
+  @ApiNotFoundResponse({
+    description: 'O cliente com os dados fornecidos não foi encontrado',
+  })
+  @Delete()
+  async deletarCliente(
+    @Body() clienteDeleteDto: ClienteDeleteDto,
+  ): Promise<void> {
+    await this.clienteUseCases.deleteClienteByCpf(clienteDeleteDto.cpf);
   }
 }

@@ -2,19 +2,28 @@ import { ClienteRepository } from '../domain/repositories/cliente.repository';
 import { Cliente } from '../domain/model/cliente';
 import { NotFoundException } from '../domain/exceptions/not-found.exception';
 import { ClienteUseCases } from './cliente.use.cases';
+import { DeleteClienteService } from '../domain/services/delete-cliente.service';
 
 describe('ClienteUseCases', () => {
   let clienteUseCases: ClienteUseCases;
-  let clienteRepositoryMock: jest.Mocked<ClienteRepository>;
+  let clienteRepository: jest.Mocked<ClienteRepository>;
+  let deleteClienteService: jest.Mocked<DeleteClienteService>;
 
   beforeEach(() => {
-    clienteRepositoryMock = {
+    clienteRepository = {
       findAll: jest.fn(),
       findByCpf: jest.fn(),
       findByEmail: jest.fn(),
       insert: jest.fn(),
+      delete: jest.fn(),
     };
-    clienteUseCases = new ClienteUseCases(clienteRepositoryMock);
+    deleteClienteService = {
+      deleteCpf: jest.fn(),
+    };
+    clienteUseCases = new ClienteUseCases(
+      clienteRepository,
+      deleteClienteService,
+    );
   });
 
   describe('getAllClientes', () => {
@@ -28,7 +37,7 @@ describe('ClienteUseCases', () => {
           '11123456789',
         ),
       ];
-      clienteRepositoryMock.findAll.mockResolvedValue(mockClientes);
+      clienteRepository.findAll.mockResolvedValue(mockClientes);
 
       const result = await clienteUseCases.getAllClientes();
 
@@ -45,7 +54,7 @@ describe('ClienteUseCases', () => {
         '11123456784',
       );
       const mockCpf = '12345678901';
-      clienteRepositoryMock.findByCpf.mockResolvedValue(mockCliente);
+      clienteRepository.findByCpf.mockResolvedValue(mockCliente);
 
       const result = await clienteUseCases.getClienteByCpf(mockCpf);
 
@@ -54,7 +63,7 @@ describe('ClienteUseCases', () => {
 
     it('should throw NotFoundException if Cliente with the provided CPF is not found', async () => {
       const mockCpf = 'nonexistent-cpf';
-      clienteRepositoryMock.findByCpf.mockResolvedValue(null);
+      clienteRepository.findByCpf.mockResolvedValue(null);
 
       await expect(
         clienteUseCases.getClienteByCpf(mockCpf),
@@ -71,7 +80,7 @@ describe('ClienteUseCases', () => {
         '11123456784',
       );
       const mockEmail = 'test@example.com';
-      clienteRepositoryMock.findByEmail.mockResolvedValue(mockCliente);
+      clienteRepository.findByEmail.mockResolvedValue(mockCliente);
 
       const result = await clienteUseCases.getClienteByEmail(mockEmail);
 
@@ -87,11 +96,41 @@ describe('ClienteUseCases', () => {
         'teste@gmail.com',
         '11123456784',
       );
-      clienteRepositoryMock.insert.mockResolvedValue(mockCliente);
+      clienteRepository.insert.mockResolvedValue(mockCliente);
 
       const result = await clienteUseCases.addCliente(mockCliente);
 
       expect(result).toEqual(mockCliente);
+    });
+  });
+
+  describe('deleteClienteByCpf', () => {
+    it('should delete the cliente by cpf and call deleteCpf on service', async () => {
+      const mockCliente = new Cliente(
+        '12345678901',
+        'Teste',
+        'teste@gmail.com',
+        '11123456784',
+      );
+
+      clienteRepository.findByCpf.mockResolvedValue(mockCliente);
+      clienteRepository.delete.mockResolvedValue(true);
+
+      await clienteUseCases.deleteClienteByCpf('12345678901');
+
+      expect(clienteRepository.findByCpf).toHaveBeenCalledWith('12345678901');
+      expect(clienteRepository.delete).toHaveBeenCalledWith(mockCliente);
+      expect(deleteClienteService.deleteCpf).toHaveBeenCalledWith(
+        '12345678901',
+      );
+    });
+
+    it('should throw NotFoundException if cliente is not found', async () => {
+      clienteRepository.findByCpf.mockResolvedValue(null);
+
+      await expect(
+        clienteUseCases.deleteClienteByCpf('12345678901'),
+      ).rejects.toThrowError(NotFoundException);
     });
   });
 });
