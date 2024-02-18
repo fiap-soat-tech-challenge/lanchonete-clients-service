@@ -2,10 +2,12 @@ import { ClienteRepository } from '../domain/repositories/cliente.repository';
 import { Cliente } from '../domain/model/cliente';
 import { NotFoundException } from '../domain/exceptions/not-found.exception';
 import { ClienteUseCases } from './cliente.use.cases';
+import { DeleteClienteService } from '../domain/services/delete-cliente.service';
 
 describe('ClienteUseCases', () => {
   let clienteUseCases: ClienteUseCases;
   let clienteRepositoryMock: jest.Mocked<ClienteRepository>;
+  let deleteClienteServiceMock: jest.Mocked<DeleteClienteService>;
 
   beforeEach(() => {
     clienteRepositoryMock = {
@@ -13,8 +15,15 @@ describe('ClienteUseCases', () => {
       findByCpf: jest.fn(),
       findByEmail: jest.fn(),
       insert: jest.fn(),
+      delete: jest.fn(),
     };
-    clienteUseCases = new ClienteUseCases(clienteRepositoryMock);
+    deleteClienteServiceMock = {
+      deleteCpf: jest.fn(),
+    };
+    clienteUseCases = new ClienteUseCases(
+      clienteRepositoryMock,
+      deleteClienteServiceMock,
+    );
   });
 
   describe('getAllClientes', () => {
