@@ -38,4 +38,9 @@ export class ClienteRepositoryImpl implements ClienteRepository {
       await this.clienteEntityRepository.save(entityToInsert);
     return ClienteConverter.toCliente(clienteEntity);
   }
+
+  async delete(cliente: Cliente): Promise<boolean> {
+    const result = await this.clienteEntityRepository.delete(cliente.id);
+    return result.affected === 1;
+  }
 }

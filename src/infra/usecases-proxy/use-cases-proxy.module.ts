@@ -3,18 +3,24 @@ import { ClienteUseCases } from '../../usecases/cliente.use.cases';
 import { ClienteRepositoryImpl } from '../repositories/cliente.repository.impl';
 import { ClienteRepository } from '../../domain/repositories/cliente.repository';
 import { RepositoriesModule } from '../repositories/repositories.module';
+import { DeleteClienteService } from '../../domain/services/delete-cliente.service';
+import { ServicesModule } from '../services/services.module';
+import { DeleteClienteServiceImpl } from '../services/delete-cliente.service.impl';
 
-const createClienteUseCase = (clienteRepository: ClienteRepository) => {
-  return new ClienteUseCases(clienteRepository);
+const createClienteUseCase = (
+  clienteRepository: ClienteRepository,
+  deleteClienteService: DeleteClienteService,
+) => {
+  return new ClienteUseCases(clienteRepository, deleteClienteService);
 };
 
 @Module({
-  imports: [RepositoriesModule],
+  imports: [RepositoriesModule, ServicesModule],
   providers: [
     {
       provide: ClienteUseCases,
       useFactory: createClienteUseCase,
-      inject: [ClienteRepositoryImpl],
+      inject: [ClienteRepositoryImpl, DeleteClienteServiceImpl],
     },
   ],
   exports: [ClienteUseCases],

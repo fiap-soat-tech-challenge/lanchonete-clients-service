@@ -5,4 +5,5 @@ export interface ClienteRepository {
   findByCpf(cpf: string): Promise<Cliente | null>;
   findByEmail(email: string): Promise<Cliente | null>;
   insert(cliente: Cliente): Promise<Cliente>;
+  delete(cliente: Cliente): Promise<boolean>;
 }
